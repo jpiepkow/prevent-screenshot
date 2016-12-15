@@ -1,25 +1,28 @@
 const fs = require('fs');
 const moment = require('moment');
-const watchTree = require("fs-watch-tree").watchTree;
+const watch = require('node-watch')
 var osObj = {
-	darwin: function(startTime,dir,files,allFiles) {
-		files.forEach(file => {
+	darwin: function(startTime,dir,allFiles) {
+		var watcher = watch(dir,{recursive:true});
+		watcher.on('change',function(file) {
+			var full = file;
+			var file = file.split('/')
+			file = file[file.length -1];
 			if((allFiles)? true : file.startsWith(`Screen Shot ${moment().format('YYYY-MM-DD').toString()}`)){
-				var temp = file.split(' ');
-				fs.stat(`${dir}/${file}`,function(err,stats) {
+				fs.stat(`${full}`,function(err,stats) {
 					if(err){
 						//console.log(err);
 					} else {
 						if(startTime.isBefore(moment(stats.birthtime))) {
 							try {
-								fs.unlinkSync(`${dir}/${file}`)
+								fs.unlinkSync(`${full}`)
 							} catch(e) {}
 						}
 					}
 
 				})
 			}
-		});
+		})
 	},
 	windows: function(startTime,dir,files) {
 		// files.forEach(file => {
@@ -36,9 +39,5 @@ var osObj = {
 }
 module.exports = function(dir,os,allFiles) {
 	var startTime = moment();
-	var watch = watchTree(dir,function(event) {
-		fs.readdir(dir, (err, files) => {
-			osObj[os](startTime,dir,files,allFiles);
-		})
-	})
+	osObj[os](startTime,dir,allFiles);
 }

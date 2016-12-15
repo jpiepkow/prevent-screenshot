@@ -1,6 +1,6 @@
 {
   "name": "prevent-screenshot",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Because preventing global hotkeys for screenshots is very hard and sometimes impossible this module will listen once started and delete all new screenshots in a give directory. Mac implementation only so far",
   "main": "index.js",
   "scripts": {
@@ -9,12 +9,11 @@
   "author": "jordan piepkow",
   "license": "ISC",
   "dependencies": {
-    "fs-watch-tree": "^0.2.5",
-    "moment": "^2.17.1"
+    "moment": "^2.17.1",
+    "node-watch": "^0.4.1"
   },
-  "repository":
-    { 
-      "type" : "git",
-      "url" : "https://github.com/jpiepkow/prevent-screenshot"
-    }
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jpiepkow/prevent-screenshot"
+  }
 }
