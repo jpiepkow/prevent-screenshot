@@ -1,2 +1,2 @@
 var preventSC = require('./index');
-preventSC('/Users/**user**/Desktop','darwin')
+preventSC('/Users/jordan/Desktop','darwin')

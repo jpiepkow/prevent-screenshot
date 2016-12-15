@@ -1,6 +1,6 @@
 {
   "name": "prevent-screenshot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Because preventing global hotkeys for screenshots is very hard and sometimes impossible this module will listen once started and delete all new screenshots in a give directory. Mac implementation only so far",
   "main": "index.js",
   "scripts": {

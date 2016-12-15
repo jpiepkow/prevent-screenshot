@@ -2,15 +2,22 @@ const fs = require('fs');
 const moment = require('moment');
 const watchTree = require("fs-watch-tree").watchTree;
 var osObj = {
-	darwin: function(startTime,dir,files) {
+	darwin: function(startTime,dir,files,allFiles) {
 		files.forEach(file => {
-			if(file.startsWith(`Screen Shot ${moment().format('YYYY-MM-DD').toString()}`)){
+			if((allFiles)? true : file.startsWith(`Screen Shot ${moment().format('YYYY-MM-DD').toString()}`)){
 				var temp = file.split(' ');
-				if(startTime.isBefore(moment(`${temp[4]}${temp[5]}`,'h.mm.ssa'))) {
-					try {
-						fs.unlinkSync(`${dir}/${file}`)
-					} catch(e) {}
-				}
+				fs.stat(`${dir}/${file}`,function(err,stats) {
+					if(err){
+						//console.log(err);
+					} else {
+						if(startTime.isBefore(moment(stats.birthtime))) {
+							try {
+								fs.unlinkSync(`${dir}/${file}`)
+							} catch(e) {}
+						}
+					}
+
+				})
 			}
 		});
 	},
@@ -27,11 +34,11 @@ var osObj = {
 		// });
 	}
 }
-module.exports = function(dir,os) {
+module.exports = function(dir,os,allFiles) {
 	var startTime = moment();
 	var watch = watchTree(dir,function(event) {
 		fs.readdir(dir, (err, files) => {
-			osObj[os](startTime,dir,files);
+			osObj[os](startTime,dir,files,allFiles);
 		})
 	})
 }
