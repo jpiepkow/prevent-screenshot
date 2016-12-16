@@ -1,2 +1,3 @@
 var preventSC = require('./index');
-preventSC('/Users/**user**/Desktop','darwin')
+var moment = require('moment')
+preventSC('/Users/jordan/Desktop','darwin',[`Screen Shot ${moment().format('YYYY-MM-DD').toString()}`,'tester'])

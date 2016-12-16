@@ -1,7 +1,7 @@
 {
   "name": "prevent-screenshot",
-  "version": "1.0.2",
-  "description": "Because preventing global hotkeys for screenshots is very hard and sometimes impossible this module will listen once started and delete all new screenshots in a give directory. Mac implementation only so far",
+  "version": "1.0.3",
+  "description": "Starting as just deleting screenshots because they are hard to prevent this lib has turned into an autodeleter that listens on a directory/directories and deletes all/files that match a string parse that have been added after the program started running.",
   "main": "index.js",
   "scripts": {
     "test": "node test.js"
