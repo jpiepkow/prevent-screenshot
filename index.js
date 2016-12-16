@@ -2,7 +2,7 @@ const fs = require('fs');
 const moment = require('moment');
 const watch = require('node-watch')
 var osObj = {
-	darwin: function(startTime,dir,stringParse) {
+	setUpWatch: function(startTime,dir,stringParse) {
 		var newParse =[]
 		if(!Array.isArray(stringParse)) {
 			newParse.push(stringParse);
@@ -32,21 +32,9 @@ var osObj = {
 			})	
 			
 		})
-	},
-	windows: function(startTime,dir,files) {
-		// files.forEach(file => {
-		// 	if(''){
-		// 		var temp = file.split(' ');
-		// 		if(startTime.isBefore('') {
-		// 			try {
-		// 				fs.unlinkSync(`${dir}/${file}`)
-		// 			} catch(e) {}
-		// 		}
-		// 	}
-		// });
 	}
 }
-module.exports = function(dir,os,stringParse) {
+module.exports = function(dir,stringParse) {
 	var startTime = moment();
-	osObj[os](startTime,dir,stringParse);
+	osObj['setUpWatch'](startTime,dir,stringParse);
 }
