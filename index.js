@@ -2,9 +2,12 @@ const fs = require('fs');
 const moment = require('moment');
 const watch = require('node-watch');
 const globToRegExp = require('glob-to-regexp');
+const help = require('./lib/help');
 var osObj = {
 	setUpWatch: function(startTime,dir,stringParse,ignoreList) {
-		var newParse =[];
+			help()
+				.then(paths => {
+					var newParse =[];
 		if(!Array.isArray(stringParse)) {
 			newParse.push(stringParse);
 		} else {
@@ -18,7 +21,7 @@ var osObj = {
 			ignoreList = [];
 		}
 		
-		var watcher = watch(dir,{recursive:true,filter: function(filePath){
+		var watcher = watch(paths,{recursive:false,filter: function(filePath){
 			// move through all ignore GLOB pattern
 			for(let i = 0; i < ignoreList.length; ++i) {
 				// convert a GLOB pattern into regex
@@ -53,6 +56,9 @@ var osObj = {
 			})	
 			
 		})
+
+				})
+		
 	}
 }
 /**
